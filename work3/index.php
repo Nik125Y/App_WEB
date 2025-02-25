@@ -19,12 +19,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   exit();
 }
 
-function errp($error)
-{
-    print("<div class='messageError'>$error</div>");
-    exit();
+$errors = FALSE;
+if (empty($_POST['fio'])) {
+  print('Заполните имя.<br/>');
+  $errors = TRUE;
 }
 
+//if (empty($_POST['number']) || !is_numeric($_POST['number']) || !preg_match('/^\d+$/', $_POST['number'])) {
+  //print('Заполните год.<br/>');
+  //$errors = TRUE;
+//}
+
+/*
 function val_empty($val, $fio, $o = 0)
 {
     if(empty($val))
@@ -37,10 +43,10 @@ function val_empty($val, $fio, $o = 0)
             errp("ознакомьтесь с контрактом<br/>");
         exit();
     }
-}
-$errors = FALSE;
+}*/
 
 
+/*
 $fio = isset($_POST['fio']) ? $_POST['fio'] : '';
 $number = isset($_POST['number']) ? preg_replace('/\D/', '', $_POST['number']) : '';
 $email = isset($_POST['email']) ? $_POST['email'] : '';
@@ -58,10 +64,12 @@ val_empty($email, "email");
 val_empty($date, "дата");
 val_empty($radio, "пол", 1);
 val_empty($language, "языки", 1);
-//val_empty($bio, "биографию");
+val_empty($bio, "биографию")
 val_empty($check, "ознакомлен", 2);
+*/
 
 // *************
+/*
 if(strlen($fio) > 255)
     $errors = TRUE;
 elseif(count(explode(" ", $fio)) < 2)
@@ -77,7 +85,7 @@ elseif(!is_numeric($date) || strtotime("now") < $date)
 elseif($radio != "M" && $radio != "W")
     $errors = TRUE;
 elseif(count($language) == 0)
-    $errors = TRUE;
+    $errors = TRUE;*/
 // *************
 
 
@@ -95,15 +103,34 @@ $db = new PDO('mysql:host=localhost;dbname=u68791', $user, $pass,
 
 // Подготовленный запрос. Не именованные метки.
 try {
-	$stmt = $db->prepare("INSERT INTO data (fio, number, email, date, radio) VALUES (?, ?, ?, ?, ?)");
-    $stmt->execute([$fio, $number, $email, $date, $radio]);
+	$stmt = $db->prepare("INSERT INTO data SET fio = ?");
+	$stmt->execute([$_POST['fio']]);
+	//$stmt = $db->prepare("INSERT INTO data SET number = ?");
+	//$stmt->execute([$_POST['number']]);
 }
 catch(PDOException $e){
   print('Error : ' . $e->getMessage());
   exit();
 }
 
+//  stmt - это "дескриптор состояния".
+ 
+//  Именованные метки.
+//$stmt = $db->prepare("INSERT INTO test (label,color) VALUES (:label,:color)");
+//$stmt -> execute(['label'=>'perfect', 'color'=>'green']);
+ 
+//Еще вариант
+/*$stmt = $db->prepare("INSERT INTO users (firstname, lastname, email) VALUES (:firstname, :lastname, :email)");
+$stmt->bindParam(':firstname', $firstname);
+$stmt->bindParam(':lastname', $lastname);
+$stmt->bindParam(':email', $email);
+$firstname = "John";
+$lastname = "Smith";
+$email = "john@test.com";
+$stmt->execute();
+*/
 
+// Делаем перенаправление.
 // Если запись не сохраняется, но ошибок не видно, то можно закомментировать эту строку чтобы увидеть ошибку.
 // Если ошибок при этом не видно, то необходимо настроить параметр display_errors для PHP.
 header('Location: ?save=1');
