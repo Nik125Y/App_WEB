@@ -55,12 +55,31 @@ $pass = '1609462';
 $db = new PDO('mysql:host=localhost;dbname=u68791', $user, $pass,
   [PDO::ATTR_PERSISTENT => true, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]); 
 
-//$inQuery = implode(',', array_fill(0, count($language), '?'));
+$inQuery = implode(',', array_fill(0, count($language), '?'));
+/* отправка языков */
+try
+{
+    $dbLangs = $db->prepare("SELECT id, name FROM languages WHERE name IN ($inQuery)");
+    foreach ($language as $key => $value)
+        $dbLangs->bindValue(($key+1), $value);
+    $dbLangs->execute();
+    $languages = $dbLangs->fetchAll(PDO::FETCH_ASSOC);
+}
+catch(PDOException $e)
+{
+    print('Error : ' . $e->getMessage());
+    exit();
+}
 
+echo $dbLangs->rowCount().'**'.count($language);
 // Отправка fio, number, email, date, radio, bio
 try {
 	$stmt = $db->prepare("INSERT INTO form_data (fio, number, email, date, radio, bio) VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->execute([$fio, $number, $email, $date, $radio, $bio]);
+	$fid = $db->lastInsertId();
+    $stmt1 = $db->prepare("INSERT INTO form_data_lang (id_form, id_lang) VALUES (?, ?)");
+    foreach($languages as $row)
+        $stmt1->execute([$fid, $row['id']]);
 }
 catch(PDOException $e){
   print('Error : ' . $e->getMessage());
