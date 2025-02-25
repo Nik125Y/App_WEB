@@ -33,7 +33,7 @@
       <div>
         <label class="input">
           <div>Любимый язык программирования</div>
-          <select class="my-2" name="language[]" multiple="multiple">
+          <select class="my-2" name="language" multiple="multiple">
             <option value="Pascal">Pascal</option>
             <option value="C">C</option>
             <option value="C++">C++</option>
@@ -51,7 +51,7 @@
       <div class="my-2">
         <div>Биография</div>
         <label>
-          <textarea class="input" name="biography" placeholder="Биография"> </textarea>
+          <textarea class="input" name="bio" placeholder="Биография"> </textarea>
         </label>
       </div>
 
