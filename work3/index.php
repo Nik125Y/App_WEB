@@ -21,31 +21,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 $errors = FALSE;
 if (empty($_POST['fio'])) {
-  print('Заполните имя.<br/>');
-  $errors = TRUE;
+	print('Заполните имя.<br/>');
+	$errors = TRUE;
 }
+
 $number = isset($_POST['number']) ? preg_replace('/\D/', '', $_POST['number']) : '';
 if(strlen($number) != 11){
 	print('Заполните номер.<br/>');
-  $errors = TRUE;
+	$errors = TRUE;
 }
-
-  
-
-/*
-function val_empty($val, $fio, $o = 0)
-{
-    if(empty($val))
-    {
-        if($o == 0)
-            errp("Заполните поле $fio.<br/>");
-        if($o == 1)
-            errp("Выберите $fio.<br/>");
-        if($o == 2)
-            errp("ознакомьтесь с контрактом<br/>");
-        exit();
-    }
-}*/
 
 
 /*
@@ -109,6 +93,12 @@ try {
 	$stmt->execute([$_POST['fio']]);
 	$stmt = $db->prepare("INSERT INTO data SET number = ?");
 	$stmt->execute([$_POST['number']]);
+	$stmt = $db->prepare("INSERT INTO data SET email = ?");
+	$stmt->execute([$_POST['email']]);
+	$stmt = $db->prepare("INSERT INTO data SET date = ?");
+	$stmt->execute([$_POST['date']]);
+	$stmt = $db->prepare("INSERT INTO data SET radio = ?");
+	$stmt->execute([$_POST['radio']]);
 }
 catch(PDOException $e){
   print('Error : ' . $e->getMessage());
