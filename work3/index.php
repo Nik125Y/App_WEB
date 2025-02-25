@@ -1,39 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="bootstrap.min.css" />
+    <title>Задание_3</title>
+  </head>
+  <body>
 <?php
-// Отправляем браузеру правильную кодировку,
-// файл index.php должен быть в кодировке UTF-8 без BOM.
 header('Content-Type: text/html; charset=UTF-8');
 
-// В суперглобальном массиве $_SERVER PHP сохраняет некторые заголовки запроса HTTP
-// и другие сведения о клиненте и сервере, например метод текущего запроса $_SERVER['REQUEST_METHOD'].
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-  // В суперглобальном массиве $_GET PHP хранит все параметры, переданные в текущем запросе через URL.
   if (!empty($_GET['save'])) {
-    // Если есть параметр save, то выводим сообщение пользователю.
     print('Спасибо, результаты сохранены.');
-  }
-  // Включаем содержимое файла form.php.
+	}
   include('form.php');
-  // Завершаем работу скрипта.
+  
   exit();
 }
-// Иначе, если запрос был методом POST, т.е. нужно проверить данные и сохранить их в БД.
 
-// Проверяем ошибки.
+function errp($error)
+{
+    print("<div class='messageError'>$error</div>");
+    exit();
+}
+
+function val_empty($val, $fio, $o = 0)
+{
+    if(empty($val))
+    {
+        if($o == 0)
+            errp("Заполните поле $fio.<br/>");
+        if($o == 1)
+            errp("Выберите $fio.<br/>");
+        if($o == 2)
+            errp("ознакомьтесь с контрактом<br/>");
+        exit();
+    }
+}
 $errors = FALSE;
-if (empty($_POST['fio'])) {
-  print('Заполните имя.<br/>');
-  $errors = TRUE;
-}
 
-if (empty($_POST['year']) || !is_numeric($_POST['year']) || !preg_match('/^\d+$/', $_POST['year'])) {
-  print('Заполните год.<br/>');
-  $errors = TRUE;
-}
 
+$fio = isset($_POST['fio']) ? $_POST['fio'] : '';
+$number = isset($_POST['number']) ? preg_replace('/\D/', '', $_POST['number']) : '';
+$email = isset($_POST['email']) ? $_POST['email'] : '';
+$date = isset($_POST['date']) ? strtotime($_POST['date']) : '';
+$radio = isset($_POST['radio']) ? $_POST['radio'] : '';
+$language = isset($_POST['language']) ? $_POST['language'] : '';
+$bio = isset($_POST['bio']) ? $_POST['bio'] : '';
+$check = isset($_POST['check']) ? $_POST['check'] : '';
+
+$languages = ($language != '') ? implode(", ", $language) : [];
+
+val_empty($fio, "имя");
+val_empty($number, "телефон");
+val_empty($email, "email");
+val_empty($date, "дата");
+val_empty($radio, "пол", 1);
+val_empty($language, "языки", 1);
+val_empty($bio, "биографию");
+val_empty($check, "ознакомлен", 2);
 
 // *************
-// Тут необходимо проверить правильность заполнения всех остальных полей.
+if(strlen($fio) > 255)
+    $errors = TRUE;
+elseif(count(explode(" ", $fio)) < 2)
+    $errors = TRUE;
+elseif(strlen($number) != 11)
+    $errors = TRUE;
+elseif(strlen($number) > 255)
+    $errors = TRUE;
+elseif(!preg_match('/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/', $email))
+    $errors = TRUE;
+elseif(!is_numeric($date) || strtotime("now") < $date)
+    $errors = TRUE;
+elseif($radio != "M" && $radio != "W")
+    $errors = TRUE;
+elseif(count($language) == 0)
+    $errors = TRUE;
 // *************
+
 
 if ($errors) {
   // При наличии ошибок завершаем работу скрипта.
@@ -42,15 +88,17 @@ if ($errors) {
 
 // Сохранение в базу данных.
 
-$user = 'u68791'; // Заменить на ваш логин uXXXXX
-$pass = '1609462'; // Заменить на пароль
+$user = 'u68791'; 
+$pass = '1609462'; 
 $db = new PDO('mysql:host=localhost;dbname=u68791', $user, $pass,
-  [PDO::ATTR_PERSISTENT => true, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]); // Заменить test на имя БД, совпадает с логином uXXXXX
+  [PDO::ATTR_PERSISTENT => true, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]); 
 
 // Подготовленный запрос. Не именованные метки.
 try {
-  $stmt = $db->prepare("INSERT INTO application SET name = ?");
-  $stmt->execute([$_POST['fio']]);
+	$stmt = $db->prepare("INSERT INTO data (fio, number, email, date, radio, bio) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->execute([$fio, $number, $email, $date, $radio, $bio]);
+ // $stmt = $db->prepare("INSERT INTO application SET name = ?");
+ // $stmt->execute([$_POST['fio']]);
 }
 catch(PDOException $e){
   print('Error : ' . $e->getMessage());
