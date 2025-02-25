@@ -25,7 +25,7 @@ $number = isset($_POST['number']) ? preg_replace('/\D/', '', $_POST['number']) :
 $email = isset($_POST['email']) ? $_POST['email'] : '';
 $date = isset($_POST['date']) ? strtotime($_POST['date']) : '';
 $radio = isset($_POST['radio']) ? $_POST['radio'] : '';
-$language = isset($_POST['language']) ? $_POST['language'] : '';
+$language = isset($_POST['language[]']) ? $_POST['language[]'] : '';
 $bio = isset($_POST['bio']) ? $_POST['bio'] : '';
 $check = isset($_POST['check']) ? $_POST['check'] : '';
 
