@@ -24,11 +24,13 @@ if (empty($_POST['fio'])) {
   print('Заполните имя.<br/>');
   $errors = TRUE;
 }
+$number = isset($_POST['number']) ? preg_replace('/\D/', '', $_POST['number']) : '';
+if(strlen($number) != 11){
+	print('Заполните номер.<br/>');
+  $errors = TRUE;
+}
 
-//if (empty($_POST['number']) || !is_numeric($_POST['number']) || !preg_match('/^\d+$/', $_POST['number'])) {
-  //print('Заполните год.<br/>');
-  //$errors = TRUE;
-//}
+  
 
 /*
 function val_empty($val, $fio, $o = 0)
@@ -105,8 +107,8 @@ $db = new PDO('mysql:host=localhost;dbname=u68791', $user, $pass,
 try {
 	$stmt = $db->prepare("INSERT INTO data SET fio = ?");
 	$stmt->execute([$_POST['fio']]);
-	//$stmt = $db->prepare("INSERT INTO data SET number = ?");
-	//$stmt->execute([$_POST['number']]);
+	$stmt = $db->prepare("INSERT INTO data SET number = ?");
+	$stmt->execute([$_POST['number']]);
 }
 catch(PDOException $e){
   print('Error : ' . $e->getMessage());
