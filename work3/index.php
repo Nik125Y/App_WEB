@@ -47,7 +47,7 @@ $email = isset($_POST['email']) ? $_POST['email'] : '';
 $date = isset($_POST['date']) ? strtotime($_POST['date']) : '';
 $radio = isset($_POST['radio']) ? $_POST['radio'] : '';
 $language = isset($_POST['language']) ? $_POST['language'] : '';
-//$bio = isset($_POST['bio']) ? $_POST['bio'] : '';
+$bio = isset($_POST['bio']) ? $_POST['bio'] : '';
 $check = isset($_POST['check']) ? $_POST['check'] : '';
 
 $languages = ($language != '') ? implode(", ", $language) : [];
@@ -96,7 +96,7 @@ $db = new PDO('mysql:host=localhost;dbname=u68791', $user, $pass,
 // Подготовленный запрос. Не именованные метки.
 try {
 	$stmt = $db->prepare("INSERT INTO data (fio, number, email, date, radio) VALUES (?, ?, ?, ?, ?)");
-    $stmt->execute([$fio, $number, $email, $date, $radio);
+    $stmt->execute([$fio, $number, $email, $date, $radio]);
 }
 catch(PDOException $e){
   print('Error : ' . $e->getMessage());
