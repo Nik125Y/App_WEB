@@ -47,7 +47,7 @@ $email = isset($_POST['email']) ? $_POST['email'] : '';
 $date = isset($_POST['date']) ? strtotime($_POST['date']) : '';
 $radio = isset($_POST['radio']) ? $_POST['radio'] : '';
 $language = isset($_POST['language']) ? $_POST['language'] : '';
-$bio = isset($_POST['bio']) ? $_POST['bio'] : '';
+//$bio = isset($_POST['bio']) ? $_POST['bio'] : '';
 $check = isset($_POST['check']) ? $_POST['check'] : '';
 
 $languages = ($language != '') ? implode(", ", $language) : [];
@@ -58,7 +58,7 @@ val_empty($email, "email");
 val_empty($date, "дата");
 val_empty($radio, "пол", 1);
 val_empty($language, "языки", 1);
-val_empty($bio, "биографию");
+//val_empty($bio, "биографию");
 val_empty($check, "ознакомлен", 2);
 
 // *************
@@ -95,34 +95,15 @@ $db = new PDO('mysql:host=localhost;dbname=u68791', $user, $pass,
 
 // Подготовленный запрос. Не именованные метки.
 try {
-	$stmt = $db->prepare("INSERT INTO data (fio, number, email, date, radio, bio) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->execute([$fio, $number, $email, $date, $radio, $bio]);
- // $stmt = $db->prepare("INSERT INTO application SET name = ?");
- // $stmt->execute([$_POST['fio']]);
+	$stmt = $db->prepare("INSERT INTO data (fio, number, email, date, radio) VALUES (?, ?, ?, ?, ?)");
+    $stmt->execute([$fio, $number, $email, $date, $radio);
 }
 catch(PDOException $e){
   print('Error : ' . $e->getMessage());
   exit();
 }
 
-//  stmt - это "дескриптор состояния".
- 
-//  Именованные метки.
-//$stmt = $db->prepare("INSERT INTO test (label,color) VALUES (:label,:color)");
-//$stmt -> execute(['label'=>'perfect', 'color'=>'green']);
- 
-//Еще вариант
-/*$stmt = $db->prepare("INSERT INTO users (firstname, lastname, email) VALUES (:firstname, :lastname, :email)");
-$stmt->bindParam(':firstname', $firstname);
-$stmt->bindParam(':lastname', $lastname);
-$stmt->bindParam(':email', $email);
-$firstname = "John";
-$lastname = "Smith";
-$email = "john@test.com";
-$stmt->execute();
-*/
 
-// Делаем перенаправление.
 // Если запись не сохраняется, но ошибок не видно, то можно закомментировать эту строку чтобы увидеть ошибку.
 // Если ошибок при этом не видно, то необходимо настроить параметр display_errors для PHP.
 header('Location: ?save=1');
