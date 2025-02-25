@@ -1,12 +1,68 @@
-<form action="" method="POST">
-  <input name="fio" />
-  <select name="year">
-    <?php 
-    for ($i = 1922; $i <= 2022; $i++) {
-      printf('<option value="%d">%d год</option>', $i, $i);
-    }
-    ?>
-  </select>
-  
-  <input type="submit" value="ok" />
-</form>
+<form action="" method="POST" class="form">
+    <div>
+      <div class="head">
+        <h2><b>Форма обратной связи</b></h2>
+      </div>
+
+      <div>
+        <label> <input name="fio" class="input" placeholder="ФИО" /> </label>
+      </div>
+
+      <div>
+        <label> <input type="tel" name="number" class="input" placeholder="Номер телефона" /> </label>
+      </div>
+
+      <div>
+        <label> <input name="email" type="email" class="input" placeholder="Почта" /> </label>
+      </div>
+
+      <div>
+        <label>
+          <input name="date" class="input" type="date" />
+        </label>
+      </div>
+
+      <div>
+        <div>Пол</div>
+        <div class="mb-1">
+          <label> <input class="ml-2" type="radio" name="radio" value="M" /> М </label>
+          <label> <input class="ml-4" type="radio" name="radio" value="W" /> Ж </label>
+        </div>
+      </div>
+
+      <div>
+        <label class="input">
+          <div>Любимый язык программирования</div>
+          <select class="my-2" name="language[]" multiple="multiple">
+            <option value="Pascal">Pascal</option>
+            <option value="C">C</option>
+            <option value="C++">C++</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="PHP">PHP</option>
+            <option value="Python">Python</option>
+            <option value="Java">Java</option>
+            <option value="Haskel">Haskel</option>
+            <option value="Clojure">Clojure</option>
+            <option value="Scala">Scala</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="my-2">
+        <div>Биография</div>
+        <label>
+          <textarea class="input" name="biography" placeholder="Биография"> </textarea>
+        </label>
+      </div>
+
+      <div>
+        <label class="oznakomlen">
+          <label> <input id="oznakomlen" type="checkbox" name="check" /> с контрактом ознакомлен(а) </label>
+        </label>
+      </div>
+
+      <button type="submit" class="button my-3">Отправить</button>
+    </div>
+  </form>
+</body>
+</html>
