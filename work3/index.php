@@ -53,7 +53,7 @@ if (empty($_POST['radio'])) {
 	echo "Выберите пол.\n";
 	$errors = TRUE;
 }
-if (empty($_POST['language']))) {
+if (empty($_POST['language'])) {
 	echo "Выберите хотя бы 1 язык.\n";
 	$errors = TRUE;
 }
