@@ -33,7 +33,7 @@ $languages = ($language != '') ? implode(", ", $language) : [];
 /* проверка на ошибки */
 $errors = FALSE;
 
-if (empty($_POST['fio']) || (preg_match('/^[А-яЁё][А-яЁё’\- ]*$/', $fio)===false) || (strlen($fio) > 255) || (count(explode(" ", $fio)) < 2)) {
+if (empty($_POST['fio']) || (preg_match('/^[А-Яа-яЁё\s]+$/', $fio)===false) || (strlen($fio) > 255) || (count(explode(" ", $fio)) < 2)) {
 	echo "Заполните имя верно.\n";
 	$errors = TRUE;
 }
