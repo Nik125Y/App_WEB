@@ -45,7 +45,7 @@ if ((filter_var($email, FILTER_VALIDATE_EMAIL)=== false) || empty($_POST['email'
     echo "e-mail адрес '$email' указан неверно или пуст.\n";
 	$errors = TRUE;
 }
-if (empty($_POST['date']) || (strtotime("now") < strtotime($date)) || !is_numeric($_POST['date']) ) {
+if (empty($_POST['date']) || !is_numeric($_POST['date']) ) {
 	echo "Укажите дату верно.\n";
 	$errors = TRUE;
 }
