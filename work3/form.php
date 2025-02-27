@@ -25,8 +25,8 @@
       <div>
         <div>Пол</div>
         <div class="mb-1">
-          <label> <input class="ml-2" type="radio" name="radio" value="M" /> М </label>
-          <label> <input class="ml-4" type="radio" name="radio" value="W" /> Ж </label>
+          <label> <input class="ml-2" type="radio" name="radio" value="M" /> Муж </label>
+          <label> <input class="ml-4" type="radio" name="radio" value="W" /> Жен </label>
         </div>
       </div>
 
@@ -44,6 +44,7 @@
             <option value="Haskel">Haskel</option>
             <option value="Clojure">Clojure</option>
             <option value="Scala">Scala</option>
+            <option value="Go">Go</option>
           </select>
         </label>
       </div>
