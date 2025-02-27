@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 $fio = isset($_POST['fio']) ? $_POST['fio'] : '';
 $number = isset($_POST['number']) ? preg_replace('/\D/', '', $_POST['number']) : '';
 $email = isset($_POST['email']) ? $_POST['email'] : '';
-$date = isset($_POST['date']) ? strtotime($_POST['date']) : '';
+$date = isset($_POST['date']) ? $_POST['date'] : '';
 $radio = isset($_POST['radio']) ? $_POST['radio'] : '';
 $language = isset($_POST['language']) ? $_POST['language'] : '';
 $bio = isset($_POST['bio']) ? $_POST['bio'] : '';
@@ -45,7 +45,7 @@ if ((filter_var($email, FILTER_VALIDATE_EMAIL)=== false) || empty($_POST['email'
     echo "e-mail адрес '$email' указан неверно или пуст.\n";
 	$errors = TRUE;
 }
-if (empty($_POST['date']) || (strtotime("now") < $date)) {
+if (empty($_POST['date']) || (strtotime("now") < strtotime($date)) || !is_numeric($_POST['date']) ) {
 	echo "Укажите дату верно.\n";
 	$errors = TRUE;
 }
