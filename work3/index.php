@@ -33,14 +33,36 @@ $languages = ($language != '') ? implode(", ", $language) : [];
 /* проверка на ошибки */
 $errors = FALSE;
 
-if (empty($_POST['fio'])) {
-	print('Заполните имя.<br/>');
+if (empty($_POST['fio']) || (preg_match('~^[а-я ]+$~i', $fio)===false) || (strlen($fio) > 255)) {
+	echo "Заполните имя верно.\n";
 	$errors = TRUE;
 }
-
-
 if(strlen($number) != 11){
 	print('Заполните номер.<br/>');
+	$errors = TRUE;
+}
+if ((filter_var($email, FILTER_VALIDATE_EMAIL)=== false) || empty($_POST['email']) || (strlen($email) > 255)) {
+    echo "e-mail адрес '$email' указан неверно или пуст.\n";
+	$errors = TRUE;
+}
+if (empty($_POST['date']) || (!is_numeric($date)) || (strtotime("now") < $date)) {
+	print('Укажите дату.<br/>');
+	$errors = TRUE;
+}
+if (empty($_POST['radio'])) {
+	print('Выберите пол.<br/>');
+	$errors = TRUE;
+}
+if (count($language) == 0) {
+	print('Выберите хотя бы 1 язык.<br/>');
+	$errors = TRUE;
+}
+if (strlen($bio) > 65535) {
+	print('Длина биографии слишком большая');
+	$errors = TRUE;
+}
+if (empty($_POST['check'])) {
+	print('Ознакомтесь.<br/>');
 	$errors = TRUE;
 }
 if ($errors) {
@@ -72,6 +94,7 @@ catch(PDOException $e)
 }
 
 echo $dbLangs->rowCount().'**'.count($language);
+
 // Отправка fio, number, email, date, radio, bio
 try {
 	$stmt = $db->prepare("INSERT INTO form_data (fio, number, email, date, radio, bio) VALUES (?, ?, ?, ?, ?, ?)");
