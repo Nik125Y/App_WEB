@@ -38,7 +38,7 @@ if (empty($_POST['fio']) || (preg_match('~^[а-я ]+$~i', $fio)===false) || (str
 	$errors = TRUE;
 }
 if(strlen($number) != 11){
-	print('Заполните номер.<br/>');
+	echo "Заполните номер.\n";
 	$errors = TRUE;
 }
 if ((filter_var($email, FILTER_VALIDATE_EMAIL)=== false) || empty($_POST['email']) || (strlen($email) > 255)) {
@@ -46,23 +46,23 @@ if ((filter_var($email, FILTER_VALIDATE_EMAIL)=== false) || empty($_POST['email'
 	$errors = TRUE;
 }
 if (empty($_POST['date']) || (!is_numeric($date)) || (strtotime("now") < $date)) {
-	print('Укажите дату.<br/>');
+	echo "Укажите дату верно.\n";
 	$errors = TRUE;
 }
 if (empty($_POST['radio'])) {
-	print('Выберите пол.<br/>');
+	echo "Выберите пол.\n";
 	$errors = TRUE;
 }
-if (count($language) == 0) {
-	print('Выберите хотя бы 1 язык.<br/>');
+if (empty($_POST['language']))) {
+	echo "Выберите хотя бы 1 язык.\n";
 	$errors = TRUE;
 }
 if (strlen($bio) > 65535) {
-	print('Длина биографии слишком большая');
+	echo "Длина биографии слишком большая\n";
 	$errors = TRUE;
 }
 if (empty($_POST['check'])) {
-	print('Ознакомтесь.<br/>');
+	echo "Ознакомтесь.\n";
 	$errors = TRUE;
 }
 if ($errors) {
