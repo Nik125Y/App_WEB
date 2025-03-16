@@ -35,7 +35,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     }
 
     if(!check_pole('fio', 'Это поле пустое', empty($fio)))
-        check_pole('fio', 'Неправильный формат: Имя Фамилия (Отчество), только кириллица', !preg_match('/^([а-яё]+-?[а-яё]+)( [а-яё]+-?[а-яё]+){1,2}$/Diu', $fio));
+        check_pole('fio', 'Неправильный формат: Имя Фамилия, только кириллица', !preg_match('/^([а-яё]+-?[а-яё]+)( [а-яё]+-?[а-яё]+){1,2}$/Diu', $fio));
     if(!check_pole('number', 'Это поле пустое', empty($number)))
     {
         check_pole('number', 'Неправильный формат, должно быть 11 символов', strlen($number) != 11);
@@ -50,7 +50,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
         check_pole('bio', 'Слишком длинное поле, максимум символов - 65535', strlen($bio) > 65535);
     check_pole('check', 'Не ознакомлены с контрактом', empty($check));
 
-    include('database.php');
+	$user = 'u68791'; 
+	$pass = '1609462'; 
+	$db = new PDO('mysql:host=localhost;dbname=u68791', $user, $pass,
+	[PDO::ATTR_PERSISTENT => true, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]); 
 
     $inQuery = implode(',', array_fill(0, count($language), '?'));
 
