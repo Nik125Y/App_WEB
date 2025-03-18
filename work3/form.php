@@ -1,4 +1,13 @@
-<form action="" method="POST" class="form">
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="bootstrap.min.css" />
+    <title>Задание_3</title>
+  </head>
+  <body>
+  <form action="" method="POST" class="form">
     <div>
       <div class="head">
         <h2><b>Форма обратной связи</b></h2>
@@ -44,7 +53,7 @@
             <option value="Haskel">Haskel</option>
             <option value="Clojure">Clojure</option>
             <option value="Scala">Scala</option>
-            <option value="Go">Go</option>
+			<option value="Go">Go</option>
           </select>
         </label>
       </div>
