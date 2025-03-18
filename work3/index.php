@@ -1,12 +1,3 @@
-<!DOCTYPE html>
-<html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="bootstrap.min.css" />
-    <title>Задание_3</title>
-  </head>
-  <body>
 <?php
 header('Content-Type: text/html; charset=UTF-8');
 
@@ -46,7 +37,7 @@ if ((filter_var($email, FILTER_VALIDATE_EMAIL)=== false) || empty($_POST['email'
 	$errors = TRUE;
 }
 if (empty($_POST['date'])) {
-	echo "Укажите дату.\n";
+	echo "Укажите дату верно.\n";
 	$errors = TRUE;
 }
 if (empty($_POST['radio'])) {
@@ -97,7 +88,7 @@ echo $dbLangs->rowCount().'**'.count($language);
 
 // Отправка fio, number, email, date, radio, bio
 try {
-	$stmt = $db->prepare("INSERT INTO form_data (fio, number, email, date, radio, bio) VALUES (?, ?, ?, ?, ?, ?)");
+	$stmt = $db->prepare("INSERT INTO form_data (fio, number, email, dat, radio, bio) VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->execute([$fio, $number, $email, $date, $radio, $bio]);
 	$fid = $db->lastInsertId();
     $stmt1 = $db->prepare("INSERT INTO form_data_lang (id_form, id_lang) VALUES (?, ?)");
