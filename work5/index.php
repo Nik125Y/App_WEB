@@ -12,16 +12,7 @@ $log = !empty($_SESSION['login']);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
-	// Выдаем сообщение об успешном сохранении.
-	if (!empty($_COOKIE['save'])) {
-        setcookie('save', '', 100000);
-        setcookie('login', '', 100000);
-        setcookie('pass', '', 100000);
-        $messages['success'] = 'Спасибо, результаты сохранены.';
-        if (!empty($_COOKIE['pass']))
-            $messages['info'] = sprintf('Вы можете <a href="login.php">войти</a> с логином <strong>%s</strong><br>
-            и паролем <strong>%s</strong> для изменения данных.', strip_tags($_COOKIE['login']), strip_tags($_COOKIE['pass']));
-    }
+	
 	
     $fio = isset($_POST['fio']) ? $_POST['fio'] : '';
     $number = isset($_POST['number']) ? $_POST['number'] : '';
@@ -181,7 +172,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         return;
     }
 
-    
+    // Выдаем сообщение об успешном сохранении.
+	if (!empty($_COOKIE['save'])) {
+        setcookie('save', '', 100000);
+        setcookie('login', '', 100000);
+        setcookie('pass', '', 100000);
+        $messages['success'] = 'Спасибо, результаты сохранены.';
+        if (!empty($_COOKIE['pass']))
+            $messages['info'] = sprintf('Вы можете <a href="login.php">войти</a> с логином <strong>%s</strong><br>
+            и паролем <strong>%s</strong> для изменения данных.', strip_tags($_COOKIE['login']), strip_tags($_COOKIE['pass']));
+    }
 
     check_field('fio', $fio);
     check_field('number', $number);
@@ -223,7 +223,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             set_val('bio', $nichego['bio']);
             set_val('check', "1");
 			
-			printf('Вход с логином %s, user_id %d', $_SESSION['login'], $_SESSION['user_id']);
+		/*	printf('Вход с логином %s, user_id %d', $_SESSION['login'], $_SESSION['user_id']);*/
 			
         } catch (PDOException $e) {
             print ('Error : ' . $e->getMessage());
