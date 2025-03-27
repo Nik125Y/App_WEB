@@ -193,15 +193,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     check_field('check', $check);
 
     $languages = explode(',', $values['language']);
-
+	// вставка значений после авторизации 
     if ($error && !empty($_SESSION['login'])) {
         try {
 			
             $dbLangs = $db->prepare("SELECT * FROM form_data WHERE user_id = ?");
             $dbLangs->execute([$_SESSION['user_id']]);
-            $nichego = $dbLangs->fetchAll(PDO::FETCH_ASSOC)[0];
+            $user_inf = $dbLangs->fetchAll(PDO::FETCH_ASSOC)[0];
 
-            $form_id = $nichego['id'];
+            $form_id = $user_inf['id'];
             $_SESSION['form_id'] = $form_id;
 
             $dbL = $db->prepare("SELECT l.name FROM form_data_lang f
@@ -214,13 +214,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             foreach ($dbL->fetchAll(PDO::FETCH_ASSOC) as $item)
                 $languages[] = $item['name'];
 
-            set_val('fio', $nichego['fio']);
-            set_val('number', $nichego['number']);
-            set_val('email', $nichego['email']);
-            set_val('date', $nichego['dat']);
-            set_val('radio', $nichego['radio']);
+            set_val('fio', $user_inf['fio']);
+            set_val('number', $user_inf['number']);
+            set_val('email', $user_inf['email']);
+            set_val('date', $user_inf['dat']);
+            set_val('radio', $user_inf['radio']);
             set_val('language', $language);
-            set_val('bio', $nichego['bio']);
+            set_val('bio', $user_inf['bio']);
             set_val('check', "1");
 			
 		/*	printf('Вход с логином %s, user_id %d', $_SESSION['login'], $_SESSION['user_id']);*/
