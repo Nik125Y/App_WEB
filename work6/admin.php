@@ -53,7 +53,7 @@ if (count($_POST)) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="bootstrap.min.css">
   <link rel="stylesheet" href="admin.css">
-  <title>Zadacha 6 (admin)</title>
+  <title>Задание_6_админка</title>
 </head>
 
 <body>
@@ -82,7 +82,7 @@ if (count($_POST)) {
                   <td>' . $row['fio'] . '</td>
                   <td>' . $row['number'] . '</td>
                   <td>' . $row['email'] . '</td>
-                  <td>' . date('d.m.Y', $row['date']) . '</td>
+                  <td>' . $row['date'] . '</td>
                   <td>' . (($row['radio'] == "M") ? "Мужской" : "Женский") . '</td>
                   <td>' . $row['bio'] . '</td>
                   <td>';
