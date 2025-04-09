@@ -108,8 +108,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         setcookie('check_error', '', time() - 30 * 24 * 60 * 60);
 
         if ($log) {
-            $stmt = $db->prepare("UPDATE form_data SET fio = ?, number = ?, email = ?, date = ?, radio = ?, bio = ? WHERE user_id = ?");
-            $stmt->execute([$fio, $number, $email, strtotime($date), $radio, $bio, $_SESSION['user_id']]);
+            $stmt = $db->prepare("UPDATE form_data SET fio = ?, number = ?, email = ?, dat = ?, radio = ?, bio = ? WHERE user_id = ?");
+            $stmt->execute([$fio, $number, $email, $date, $radio, $bio, $_SESSION['user_id']]);
 
             $stmt = $db->prepare("DELETE FROM form_data_lang WHERE id_form = ?");
             $stmt->execute([$_SESSION['form_id']]);
@@ -130,8 +130,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt->execute([$login, $mpass]);
                 $user_id = $db->lastInsertId();
 
-                $stmt = $db->prepare("INSERT INTO form_data (user_id, fio, number, email, date, radio, bio) VALUES (?, ?, ?, ?, ?, ?, ? )");
-                $stmt->execute([$user_id, $fio, $number, $email, strtotime($date), $radio, $bio]);
+                $stmt = $db->prepare("INSERT INTO form_data (user_id, fio, number, email, dat, radio, bio) VALUES (?, ?, ?, ?, ?, ?, ? )");
+                $stmt->execute([$user_id, $fio, $number, $email, $date, $radio, $bio]);
                 $fid = $db->lastInsertId();
 
                 $stmt1 = $db->prepare("INSERT INTO form_data_lang (id_form, id_lang) VALUES (?, ?)");
