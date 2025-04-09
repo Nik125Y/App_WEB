@@ -243,7 +243,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             set_val('fio', $nichego['fio']);
             set_val('number', $nichego['number']);
             set_val('email', $nichego['email']);
-            set_val('date', date("Y-m-d", $nichego['date']));
+            set_val('date', $nichego['date']);
             set_val('radio', $nichego['radio']);
             set_val('language', $language);
             set_val('bio', $nichego['bio']);
