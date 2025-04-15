@@ -82,7 +82,7 @@ if (count($_POST)) {
                   <td>' . $row['fio'] . '</td>
                   <td>' . $row['number'] . '</td>
                   <td>' . $row['email'] . '</td>
-                  <td>' . $row['date'] . '</td>
+                  <td>' . $row['dat'] . '</td>
                   <td>' . (($row['radio'] == "M") ? "Мужской" : "Женский") . '</td>
                   <td>' . $row['bio'] . '</td>
                   <td>';
