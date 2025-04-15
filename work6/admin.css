@@ -1,6 +1,6 @@
 body {
   color: white;
-  background-color: #010521;
+  background-color: #a1a8d6;
 }
 
 .table1 {
@@ -32,11 +32,11 @@ td {
 }
 
 tbody tr:nth-child(even) {
-  background: rgb(2, 42, 33);
+  background: #cc4e4e;
 }
 
 tbody tr:nth-child(odd) {
-  background: #161616;
+  background: #42575c;
 }
 
 thead {
