@@ -243,7 +243,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             set_val('fio', $user_inf['fio']);
             set_val('number', $user_inf['number']);
             set_val('email', $user_inf['email']);
-            set_val('date', $user_inf['date']);
+            set_val('date', $user_inf['dat']);
             set_val('radio', $user_inf['radio']);
             set_val('language', $language);
             set_val('bio', $user_inf['bio']);
