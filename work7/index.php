@@ -16,7 +16,8 @@ $adminLog = isset($_SERVER['PHP_AUTH_USER']);
 $uid = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 $getUid = isset($_GET['uid']) ? strip_tags($_GET['uid']) : '';
 
-$token = isset($_SESSION['csrf_token']); //= bin2hex(rand());//////////////
+$_SESSION['csrf_token']=  bin2hex(rand());
+$token = isset($_SESSION['csrf_token']); 
 
 if ($adminLog && preg_match('/^[0-9]+$/', $getUid)) {
     $uid = $getUid;
@@ -25,7 +26,7 @@ if ($adminLog && preg_match('/^[0-9]+$/', $getUid)) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
-	 if (isset($_POST['csrf_token']) !== $token) {////////////
+	 if (isset($_POST['csrf_token']) !== $token) {
          die('CSRF token validation failed');
      }
 	
@@ -160,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         setcookie('save', '1');
     }
 	
-	//unset($_SESSION['csrf_token']);////////////////
+	
 	
     header('Location: index.php' . (($getUid != NULL) ? '?uid=' . $uid : ''));
 } else {
