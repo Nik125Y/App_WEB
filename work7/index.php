@@ -25,7 +25,7 @@ if ($adminLog && preg_match('/^[0-9]+$/', $getUid)) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
-	if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {////////////
+	if (isset($_POST['csrf_token']) !== $_SESSION['csrf_token']) {////////////
         die('CSRF token validation failed');
     }
 	
