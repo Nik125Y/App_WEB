@@ -16,7 +16,7 @@ $adminLog = isset($_SERVER['PHP_AUTH_USER']);
 $uid = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : '';
 $getUid = isset($_GET['uid']) ? strip_tags($_GET['uid']) : '';
 
-$token = isset($_SESSION['csrf_token']) //= bin2hex(rand());//////////////
+$token = isset($_SESSION['csrf_token']); //= bin2hex(rand());//////////////
 
 if ($adminLog && preg_match('/^[0-9]+$/', $getUid)) {
     $uid = $getUid;
