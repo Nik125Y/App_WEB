@@ -25,9 +25,9 @@ if ($adminLog && preg_match('/^[0-9]+$/', $getUid)) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
-	if (isset($_POST['csrf_token']) !== $_SESSION['csrf_token']) {////////////
-        die('CSRF token validation failed');
-    }
+	// if (isset($_POST['csrf_token']) !== $_SESSION['csrf_token']) {////////////
+ //        die('CSRF token validation failed');
+ //    }
 	
     $fio = isset($_POST['fio']) ? $_POST['fio'] : '';
     $number = isset($_POST['number']) ? $_POST['number'] : '';
@@ -160,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         setcookie('save', '1');
     }
 	
-	unset($_SESSION['csrf_token']);////////////////
+	//unset($_SESSION['csrf_token']);////////////////
 	
     header('Location: index.php' . (($getUid != NULL) ? '?uid=' . $uid : ''));
 } else {
